@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌙 Eid Mubarak From HasnatRafi</title>
+<style>
+/* ----------------- Global ----------------- */
+body, html {
+    margin:0; padding:0;
+    width:100%; height:100%;
+    font-family: Arial, sans-serif;
+    overflow:hidden;
+    background: linear-gradient(to top, #0f2027, #2c5364);
+    color:white;
+}
+.step { position:absolute; width:100%; height:100%; display:flex; justify-content:center; align-items:center; flex-direction: column; text-align:center; transition: opacity 1s ease; opacity:0; pointer-events:none;}
+.step.active { opacity:1; pointer-events:auto; }
+
+/* ----------------- Buttons ----------------- */
+/* Start Button */
+button.start-btn {
+    padding: 14px 35px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(145deg, #FF7F50, #FF6347);
+    border:none;
+    border-radius:15px;
+    box-shadow:0 6px 15px rgba(255,99,71,0.6);
+    cursor:pointer;
+    transition: all 0.3s ease;
+    text-shadow:1px 1px 2px rgba(0,0,0,0.3);
+}
+button.start-btn:hover {
+    transform: translateY(-3px) rotate(-1deg);
+    box-shadow:0 8px 20px rgba(255,99,71,0.8);
+}
+
+/* Next Button */
+button.next-btn {
+    padding: 12px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(145deg, #FFD700, #FFA500);
+    border:none;
+    border-radius:12px;
+    box-shadow:0 4px 15px rgba(255,215,0,0.5);
+    cursor:pointer;
+    transition: all 0.3s ease;
+    margin-top:20px;
+}
+button.next-btn:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow:0 6px 20px rgba(255,215,0,0.8);
+}
+
+/* Surprise Button */
+button.surprise-btn {
+    padding: 14px 40px;
+    font-size: 17px;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(145deg, #00BFFF, #1E90FF);
+    border:none;
+    border-radius:50px;
+    box-shadow:0 5px 20px rgba(30,144,255,0.5);
+    cursor:pointer;
+    transition: all 0.4s ease;
+    text-transform: uppercase;
+}
+button.surprise-btn:hover {
+    transform: translateY(-4px) rotate(2deg) scale(1.05);
+    box-shadow:0 8px 25px rgba(30,144,255,0.7);
+}
+
+/* ----------------- Step Content ----------------- */
+#welcome h1, #final h1 { font-size:32px; margin-bottom:20px; color: gold; text-shadow: 1px 1px 5px #000; }
+#blessings p, #message p, #final p { font-size:18px; margin:10px; max-width:80%; }
+#message h2 { font-size:28px; color:#FFD700; }
+
+/* ----------------- Lanterns ----------------- */
+.lantern {
+    position:absolute;
+    width:80px; height:50px;
+    background: rgba(255,165,0,0.85);
+    border-radius: 10px;
+    display:flex; justify-content:center; align-items:center;
+    font-size:14px; font-weight:bold;
+    color:#fff; padding:5px;
+    box-shadow:0 0 15px rgba(255,165,0,0.5);
+}
+
+/* ----------------- EID Box ----------------- */
+#eidBox {
+    position:absolute;
+    top:30%;
+    left:50%;
+    transform:translateX(-50%);
+    background: rgba(255,215,0,0.9);
+    color:black;
+    font-size:36px;
+    font-weight:bold;
+    padding:20px 35px;
+    border-radius:12px;
+    box-shadow:0 0 30px rgba(255,215,0,0.7);
+    z-index:10;
+    animation: glowPulse 2s infinite alternate;
+}
+@keyframes glowPulse {
+    0% { box-shadow:0 0 30px rgba(255,215,0,0.7);}
+    50% { box-shadow:0 0 50px rgba(255,215,0,1);}
+    100% { box-shadow:0 0 30px rgba(255,215,0,0.7);}
+}
+
+/* ----------------- Moon Glow ----------------- */
+.moon {
+    position:absolute;
+    top:20%;
+    width:120px; height:120px;
+    background: radial-gradient(circle at 30% 30%, #FFD700 40%, transparent 60%);
+    border-radius:50%;
+    box-shadow:0 0 50px #FFD700;
+    animation: glow 2s infinite alternate;
+}
+@keyframes glow { from {box-shadow:0 0 50px #FFD700;} to {box-shadow:0 0 80px #FFD700;} }
+
+/* ----------------- Sparkle ----------------- */
+.sparkle {
+    position:absolute;
+    width:4px; height:4px;
+    border-radius:50%;
+    background: white;
+    opacity:0;
+    animation: blink 2s infinite;
+}
+@keyframes blink { 0%,100%{opacity:0;} 50%{opacity:1;} }
+
+/* ----------------- Fireworks ----------------- */
+#fireworksCanvas { position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; }
+
+/* ----------------- Confetti ----------------- */
+.confetti { position:absolute; width:10px; height:10px; background-color:gold; opacity:0.8; transform:rotate(0deg); }
+
+</style>
+</head>
+<body>
+
+<!-- Step 1: Welcome -->
+<div id="welcome" class="step active">
+    <h1>✨ Assalamu Alaikum ✨</h1>
+    <button class="start-btn" onclick="nextStep()">Start Eid Journey</button>
+</div>
+
+<!-- Step 2: Blessings -->
+<div id="blessings" class="step">
+    <p>“Taqabbalallahu minna wa minkum”</p>
+    <p>ঈদ মোবারক 💛</p>
+<p>আপনার জীবন হোক বরকতময়, ভালোবাসা আর নূরের আলোয় আলোকিত....!🌸</p>
+    <button class="next-btn" onclick="nextStep()">Next</button>
+</div>
+
+<!-- Step 3: Personal Message -->
+<div id="message" class="step">
+    <h2>🌙 Eid Mubarak from Hasnat Rafi 🌙</h2>
+    <p>Eid Mubarak! Wishing you and your loved ones a blessed, peaceful, and joyful celebration filled with love, laughter, and prosperity. May Allah accept your good deeds, grant your prayers, and fill your home with happiness. Have a wonderful and memorable Eid celebration! </p>
+    <button class="surprise-btn" onclick="nextStep()">See Surprise 🎁</button>
+</div>
+
+<!-- Step 4: Lanterns + Fixed Eid Box + Moon + Sparkles -->
+<div id="lanterns" class="step">
+    <div class="moon"></div>
+    <div id="eidBox">🌙 EID MUBARAK 🌙</div>
+</div>
+
+<!-- Step 5: Final Blessing -->
+<div id="final" class="step">
+    <h1>🌙 EID MUBARAK 🌙</h1>
+    <p>Stay Blessed 🤲</p>
+    <p>Love, Peace & Happiness to You and Your Family</p>
+</div>
+
+<!-- Fireworks Canvas -->
+<canvas id="fireworksCanvas"></canvas>
+
+<!-- Eid Music -->
+<audio id="eidMusic" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_7c4c0e05c3.mp3?filename=islamic-chant-10891.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+// ----------------- Step Logic -----------------
+let currentStep=0;
+const steps=document.querySelectorAll('.step');
+function nextStep(){
+    steps[currentStep].classList.remove('active');
+    currentStep++;
+    if(currentStep<steps.length){
+        steps[currentStep].classList.add('active');
+        if(currentStep===3){
+            document.getElementById('eidMusic').play();
+            createLanterns();
+            rotateLanternText();
+            createSparkles();
+            startFireworks();
+        }
+        if(currentStep===4){ launchConfetti(); }
+    }
+}
+
+// ----------------- Lanterns -----------------
+const lanternMessages=["Eid Mubarak!","Ramadan Kareem","Peace & Joy","Happiness","Blessings","Love & Light","Family Time","Gratitude"];
+let lanterns=[];
+function createLanterns(){
+    const container=document.getElementById('lanterns');
+    for(let i=0;i<15;i++){
+        let lantern=document.createElement('div');
+        lantern.className='lantern';
+        lantern.style.left=Math.random()*90+'vw';
+        lantern.style.top=(80+Math.random()*20)+'vh';
+        lantern.style.transition='top 25s linear';
+        lantern.innerText=lanternMessages[i % lanternMessages.length];
+        container.appendChild(lantern);
+        lanterns.push(lantern);
+    }
+    setTimeout(()=>{ lanterns.forEach(el=>{ el.style.top='-10vh'; }); },100);
+}
+
+// Rotate Lantern Text
+let msgIndex=0;
+function rotateLanternText(){
+    setInterval(()=>{
+        msgIndex++;
+        lanterns.forEach((el,i)=>{
+            el.innerText = lanternMessages[(msgIndex+i)%lanternMessages.length];
+        });
+    },3000);
+}
+
+// Sparkles
+function createSparkles(){
+    const container=document.getElementById('lanterns');
+    for(let i=0;i<50;i++){
+        let sp=document.createElement('div');
+        sp.className='sparkle';
+        sp.style.left=Math.random()*100+'vw';
+        sp.style.top=Math.random()*100+'vh';
+        sp.style.animationDelay=(Math.random()*3)+'s';
+        container.appendChild(sp);
+    }
+}
+
+// Fireworks
+function startFireworks(){
+    const canvas=document.getElementById('fireworksCanvas');
+    const ctx=canvas.getContext('2d');
+    canvas.width=window.innerWidth; canvas.height=window.innerHeight;
+    let fireworks=[];
+    function random(min,max){return Math.random()*(max-min)+min;}
+    function Firework(){
+        this.x=random(0,canvas.width); this.y=canvas.height;
+        this.targetY=random(canvas.height/4,canvas.height/2);
+        this.radius=2; this.color=`hsl(${Math.random()*360},100%,50%)`; this.explode=false; this.particles=[];
+    }
+    Firework.prototype.update=function(){
+        if(!this.explode){ this.y-=5;
+            if(this.y<=this.targetY){ this.explode=true;
+                for(let i=0;i<30;i++){this.particles.push({x:this.x,y:this.y,vx:random(-3,3),vy:random(-3,3),alpha:1,color:this.color});}
+            }
+        }else{ this.particles.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.alpha-=0.02;}); this.particles=this.particles.filter(p=>p.alpha>0);}
+    }
+    Firework.prototype.draw=function(){
+        if(!this.explode){ ctx.beginPath(); ctx.arc(this.x,this.y,this.radius,0,Math.PI*2); ctx.fillStyle=this.color; ctx.fill();}
+        else{ this.particles.forEach(p=>{ctx.beginPath(); ctx.arc(p.x,p.y,2,0,Math.PI*2); ctx.fillStyle=`rgba(255,215,0,${p.alpha})`; ctx.fill();});}
+    }
+    function animate(){
+        ctx.fillStyle='rgba(15,32,39,0.2)'; ctx.fillRect(0,0,canvas.width,canvas.height);
+        if(Math.random()<0.05) fireworks.push(new Firework());
+        fireworks.forEach(fw=>{fw.update(); fw.draw();});
+        fireworks=fireworks.filter(fw=>!fw.explode || fw.particles.length>0);
+        requestAnimationFrame(animate);
+    }
+    animate();
+}
+
+// Confetti
+function launchConfetti(){
+    for(let i=0;i<200;i++){
+        let c=document.createElement('div');
+        c.className='confetti';
+        c.style.left=Math.random()*100+'vw';
+        c.style.top=Math.random()*100+'vh';
+        c.style.backgroundColor=`hsl(${Math.random()*360},100%,50%)`;
+        document.body.appendChild(c);
+        let fall=setInterval(()=>{
+            let top=parseFloat(c.style.top);
+            c.style.top=top+3+'px';
+            c.style.transform=`rotate(${parseFloat(c.style.transform.replace('rotate(','').replace('deg)','')||0)+5}deg)`;
+            if(top>window.innerHeight){ c.remove(); clearInterval(fall);}
+        },30);
+    }
+}
+</script>
+</body>
+</html>
